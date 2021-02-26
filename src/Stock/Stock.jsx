@@ -1,5 +1,4 @@
 function Stock() {
-  alert('stock');
   return <div>patate</div>;
 }
 
