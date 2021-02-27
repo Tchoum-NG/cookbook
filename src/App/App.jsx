@@ -1,8 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, List, ListItem, ListItemText, AppBar, Toolbar } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
 import KitchenIcon from '@material-ui/icons/Kitchen';
+import Box from '@material-ui/core/Box';
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import Recipes from '../Recipes/Recipes';
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     textColor: 'white',
   },
   content: {
-    display: 'block',
+    flex: 1,
     position: 'absolute',
     top: navHeight,
     left: appbarWidth,
@@ -36,54 +37,46 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   return (
-    <div>
-      <div>
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <Typography variant="h6" noWrap>
-              gropor
-            </Typography>
-          </Toolbar>
-        </AppBar>
+    <Box display="flex">
+      <AppBar display="flex" position="fixed" className={classes.appBar}>
+        <Toolbar>
+          <Typography variant="h6" noWrap>
+            gropor
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Router>
         <Drawer
+          display="flex"
           className={classes.drawer}
           classes={{ paper: classes.drawerPaper }}
           variant="permanent"
         >
           <Toolbar elevation={3} />
-          <Router>
-            <List>
-              <ListItem>
-                <RestaurantMenuIcon />
-                <ListItemText>
-                  <Link to="/recipes">Recipes</Link>
-                </ListItemText>
-              </ListItem>
-              <ListItem>
-                <KitchenIcon />
-                <ListItemText>
-                  <Link to="/stock">Stock</Link>
-                </ListItemText>
-              </ListItem>
-            </List>
-          </Router>
+          <List>
+            <ListItem>
+              <RestaurantMenuIcon />
+              <ListItemText>
+                <Link to="/recipes">Recipes</Link>
+              </ListItemText>
+            </ListItem>
+            <ListItem>
+              <KitchenIcon />
+              <ListItemText>
+                <Link to="/stock">Stock</Link>
+              </ListItemText>
+            </ListItem>
+          </List>
         </Drawer>
-      </div>
-      <Paper display="block" className={classes.content}>
-        <Router>
+        <Card display="flex" className={classes.content}>
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/recipes" />} />
-            <Route path="/recipes">
-              <Recipes />
-            </Route>
-            <Route path="/stock">
-              <Stock />
-            </Route>
+            <Route path="/recipes" component={Recipes} />
+            <Route path="/stock" component={Stock} />
           </Switch>
-        </Router>
-        <p>test</p>
-      </Paper>
-    </div>
+        </Card>
+      </Router>
+    </Box>
   );
 }
 

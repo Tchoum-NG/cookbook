@@ -1,5 +1,5 @@
 function Stock() {
-  return <div>patate</div>;
+  return <div>stock</div>;
 }
 
 export default Stock;
